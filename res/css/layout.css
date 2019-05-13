@@ -1,0 +1,225 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tBar {
+    width:100%;
+    position: absolute;
+    top: 0;
+    padding-top: 10px;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.tBar_right{
+    float:right;
+}
+
+.tBar_right div{
+    padding-right: 10px;
+    display: inline-block;
+    -webkit-app-region: no-drag;
+}
+
+.logo_div {
+    height: 230px;
+    background-color: #1ab394;
+}
+
+.logo_icon{
+    position: absolute;
+    top: 55px;
+    left:115px;
+}
+
+.login_form {
+    position: absolute;
+    left: 33px;
+    width: 254px;
+    height: 210px;
+    top: 200px;
+    background-color: #fff;
+    border-radius: 25px;
+    border-color: #fff;
+    box-shadow:3px 3px 10px 1px #999;
+    padding: 24px;
+}
+
+.login_form input {
+    width: 210px;
+    margin-bottom: 20px;
+    height: 30px;
+    border-bottom-color: #666666;
+    border-top: 0;
+    border-right:0;
+    border-left:0;
+    font-size: 12pt;
+    color:#999999;
+}
+
+.loginBtn {
+    font-size: 12pt;
+    color: #666666;
+    background-color: #dddddd;
+    border-radius:25px;
+    width:175px;
+    height: 40px;
+    position: absolute;
+    left:66px;
+    bottom: 60px;
+    box-shadow: 3px 3px 10px 1px #999;
+    border: 0;
+    cursor: pointer;
+}
+
+.loginBtn:hover{
+    background-color: #1ab394;
+    color: #fff;
+}
+
+header {
+    width: calc(100% - 50px);
+    height: 50px;
+    padding : 15px 15px;
+    float: right;
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+    background-color: #1ab394;
+}
+
+header span{
+    color: #fff;
+    font-size: 14pt;
+    font-weight: 500;
+}
+
+header div {
+    display: inline-block;
+    -webkit-app-region: no-drag;
+}
+
+header div a{
+    padding : 0 2px;
+}
+
+nav {
+    position: fixed;
+    height: 100%;
+    width:50px;
+    background-color: #525252;
+}
+
+nav a {
+    display: block;
+    padding: 13px 13px;
+    height: 50px;
+}
+
+nav a:nth-last-child(1){
+    position: absolute;
+    bottom: 0;
+}
+
+nav a:nth-last-child(2){
+    position: absolute;
+    bottom: 50px;;
+}
+
+
+nav a img{
+    width:22px;
+}
+
+section {
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    float: right;
+}
+
+
+.serach-div {
+    padding: 10px 10px;
+    height: 40px;
+    border-bottom: 1px solid #999;
+}
+
+.serach-div img{
+    vertical-align: middle;
+}
+
+.serach-div input{
+    width: 80%;
+    border:none;
+    height: 14pt;
+}
+
+.chat-list{
+    height: 70px;
+}
+
+.chat-item {
+
+}
+
+.chat-profill {
+    display : inline-block;
+    width : 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.chat-preview {
+    display: inline-block;
+    vertical-align: text-bottom;
+    width: calc(100% - 75px);
+    height: 50px;
+}
+
+.chat-preview > .chat-content, .chat-preview > .chat-time {
+    display: inline-block;
+}
+
+.chat-content {
+    width: calc( 100% - 85px);
+}
+
+.chat-content > .ellipsis{
+    width : calc(100% - 35px);
+    display: inline-block;
+}
+
+.chat-content > .chat-userCount {
+    vertical-align: top;
+}
+
+.chat-content .chat-content-room {
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+.chat-content > .chat-content-preview {
+    font-size: 10pt;
+}
+
+.chat-time {
+    width: 70px;
+    font-size: 8pt;
+    margin-right:10px;
+    vertical-align: top;
+}
+
+.chat-time > .chat-time-last, .chat-time-count {
+    float: right;
+}
+
+.chat-time > .chat-time-count {
+    background-color: #ff0000;
+    color : #fff;
+    border-radius: 11px;
+    padding: 2px 5px;
+}

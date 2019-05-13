@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>OfficeHub Talk</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/gray/easyui.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/mobile.css">
+
+    <link rel="stylesheet" type="text/css" href="./home.css">
+
+    <link rel="stylesheet" type="text/css" href="./res/css/app.css">
+
+    <link rel="stylesheet" type="text/css" href="./res/css/layout.css">
+
+</head>
+
+<body>
+
+    <!-- s:arap  -->
+    <div class="easyui-navpanel">
+        
+        <!-- s: toolbar -->
+        <div class="tBar">
+
+            <div class="tBar_right">
+                
+                <div>
+                    <a href="javascript:minimize()">
+                        <img src="./res/img/imgPC_media_minus.png">
+                    </a>
+                </div>
+
+                <div>
+                    <a href="javascript:close()">
+                        <img src="./res/img/imgPC_close3.png">
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- e : toolbar -->
+        
+        <!-- s:logo -->
+        <div class="logo_div ">
+            <div class="logo_icon">
+                <img src="./res/img/imgPC_logo_login.png">
+            </div>
+        </div>
+        <!-- e:logo -->
+
+        <!-- s : form -->
+        <section class="login_form">
+            <input id="compName" type="text" placeholder="회사명">
+            <input id="id" type="text" placeholder="ID">
+            <input id="pw" type="password" placeholder="PASSWORD">
+        </section>
+        <!-- e : form -->
+
+        <!-- s : login button -->
+        <button onclick="login();" class="loginBtn">LOG IN</button>
+        <!-- e : login button -->
+
+    </div>
+
+</body>
+
+<script src="util.js"></script>
+
+<script src="lang.js"></script>
+
+<script>
+    require('./renderer.js');
+
+    setLanguage();
+    const {BrowserWindow} = require('electron').remote
+    var options = readData('option');
+
+    if (options == null) options = [ true, true, true, true, true, true ];
+
+    if (options[3] == undefined)
+
+        options[3] = true;
+
+    if (options[4] == undefined) {
+
+        options[4] = true;
+
+        options[5] = true;
+
+    }
+    
+    writeData('option', options);
+
+    function login(){
+        console.log('test')
+        let getId = document.getElementById("id").value;
+        let getPw = document.getElementById("pw").value;
+        let getCompName = document.getElementById("compName").value;
+
+        let b64pw = btoa(getPw);
+
+        console.log(b64pw)
+/*
+        request('http://file.officehub.kr/encrypt.php?passwd='+b64pw, function (error, response, body) {
+
+            console.log(body)
+
+            let ePw = body;
+
+            console.log(ePw)
+
+            request.post(
+                {
+
+                    url: 'http://api.officehub.kr:8080',
+
+                    form: { id: getId, passwd: ePw, host : getCompName , pushId : '', device : 1 }
+
+                },
+
+                function (error, response, body) {
+
+
+                }
+
+            ); // E : call Rest API 
+
+        }); // E : encrypt pw
+*/
+        ipcRenderer.send('goHomeWindow');
+        //window.close()
+        //window.open("http://www.naver.com", "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=no" ); 
+
+    } // E : login() 
+</script>
+
+</html>
+

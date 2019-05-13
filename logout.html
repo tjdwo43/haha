@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OfficeHub Talk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/gray/easyui.css">  
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">  
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./home.css">
+</head>
+<body>
+    <div class="easyui-navpanel" style="background-color: #1AB394; overflow-x: hidden; overflow-y: hidden;">
+        <div class="m-toolbar" style="-webkit-app-region:drag">
+            <div class="m-right">
+                <a href="javascript:close()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+            </div>
+        </div>
+        <div style="margin:40px auto;width:240px;height:200px">
+            <img src="./img/logo.png" style="width:100%;">
+        </div>
+        <div style="margin-top:50px; padding:0 20px; text-align:center;">
+            <div id="message" style="color:yellow"></div>
+            <div style="margin-top:50px">
+                <a href="javascript:login()" class="easyui-linkbutton" style="width:80%;height:40px">
+                    <span style="font-size:16px">재접속</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="util.js"></script>
+<script src="lang.js"></script>
+<script>
+    require('./renderer.js');
+    
+    setLanguage(false, true);
+
+    var myInfo = readData('myInfo');
+    if (myInfo) {
+    //  var msg = '위 계정으로 다른 디바이스에서 접속했습니다.';
+        var msg = $.lang[currentLanguage][58];
+
+        $('#message').html('<h2>' + myInfo.name + ' (' + myInfo.email + ')</h2>' + msg);
+    }
+    function login() {
+        
+        request.post(
+            {
+                url: server + '/auth/login',
+                form: {
+                    email: myInfo.email,
+                    password: myInfo.password
+                }
+            },
+            function (error, response, body) {
+
+                if (response.statusCode == 200) {
+
+                    console.log(body);
+        
+                    var myInfo = $.parseJSON(body);
+
+                    if (myInfo.id > 0) {
+                
+                        writeData('myInfo', myInfo);
+
+                        location.replace('home.html');
+                    }
+                }
+            }
+        );
+    }
+
+</script>
+</html>

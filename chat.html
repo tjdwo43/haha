@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OfficeHub Talk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/gray/easyui.css">  
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">  
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/mobile.css">
+    <link rel="stylesheet" type="text/css" href="./home.css">
+    <link rel="stylesheet" type="text/css" href="./chat.css">
+</head>
+<body style="display:none">
+    <div id="main" class="easyui-navpanel" style="background-color:lightcyan">
+        <header style="-webkit-app-region: no-drag">
+            <div class="m-toolbar" style="-webkit-app-region: drag">
+                <span id="title" class="m-title">Loading...</span>
+                <div class="m-right">
+                    <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+                    <a href="javascript:close2()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+                </div>
+            </div>
+            <div id="name_edit" class="m-toolbar" style="display:none; margin:5px">
+                <input id="name_text" class="easyui-textbox" style="width:100%;" buttonText="대화방명 변경">
+            </div>
+        </header>
+        <footer style="padding:5px 5px">
+            <input id="text" class="easyui-textbox" style="width:100%;" multiline="true"
+             prompt="줄바꿈: Shift+Enter / Ctrl+Enter"
+             buttonText="<p style='margin:5px 10px'>보내기<br style='margin:0'>(Enter)</p>">
+        </footer>
+        <ul id="chat" class="m-list" lines="false"></ul>
+    </div>
+    <div id="mm" class="easyui-menu" style="width:150px;">
+        <div id="ok" data-options="iconCls:'icon-ok'" data-langNum="41">바로가기 만들기</div>
+        <div class="menu-sep"></div>
+        <div id="edit" data-options="iconCls:'icon-edit'" data-langNum="42">대화방명 변경</div>
+        <div id="add" data-options="iconCls:'icon-add'" data-langNum="43">대화상대 초대</div>
+        <div id="man" data-options="iconCls:'icon-man'" data-langNum="44">대화방 참여자</div>
+        <div class="menu-sep"></div>
+        <div id="remove" data-options="iconCls:'icon-remove'" data-langNum="45">나가기</div>
+    </div>
+    <div id="participant" class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title" data-langNum="44">대화방 참여자</span>
+                <div class="m-left">
+                    <a onclick="$.mobile.back()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+                </div>
+            </div>
+        </header>
+        <ul id="users" class="m-list"></ul>
+    </div>
+    <div id="userinfo" class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title" data-langNum="15">사용자정보</span>
+                <div class="m-left">
+                    <a onclick="$.mobile.back()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+                </div>
+            </div>
+        </header>
+        <div class="easyui-navpanel">
+            <div style="background-color: #FAFAFD; margin:0; padding: 30px 0 0 30px; height:164px;">
+                <div>
+                    <div id="user_photo_frame" class="user-photo">
+                        <img id="user_photo" style="margin:0;width:100%;height:100%;">
+                    </div>
+                    <div class="text-box"></div>
+                    <table class="text-box">
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="21">이름</strong></td><td><span class="plane-text" id="user_name"></span></td></tr>
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="22">소속</strong></td><td><span class="plane-text" id="user_comp"></span></td></tr>
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="23">직급</strong></td><td><span class="plane-text" id="user_rank"></span></td></tr>
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="24">부서</strong></td><td><span class="plane-text" id="user_part"></span></td></tr>
+                    </table>
+               </div>
+                <div style="clear:left"></div>
+            </div>
+            <div style="height:2px; background-color:#E2E2E2"></div>
+            <div style="padding:30px 0 0 10px">
+                <table class="text-box">
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="25">연락처</strong></td><td><span class="plane-text" id="user_phone"></span></td></tr>
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="26">휴대폰</strong></td><td><span class="plane-text" id="user_cell"></span></td></tr>
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="27">이메일</strong></td><td><span class="plane-text" id="user_email"></span></td></tr>
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="28">담당업무</strong></td><td><span class="plane-text" id="user_job"></span></td></tr>
+                </table>
+                <div style="margin:30px 0 0 20px">
+                    <input id="user_status" readonly=true class="easyui-textbox" style="width:300px; height:70px"
+                     prompt="등록된 상태메시지가 없습니다." multiline="true">
+                </div>
+            </div>
+            <div style="width:100%; text-align:center; margin-top:50px;">
+                <a id="user_chat" class="easyui-linkbutton" plain="true">
+                    <span style="font-size:16px" data-langNum="17">대화하기</span>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="select" class="easyui-navpanel">
+        <header>
+            <div class="m-toolbar">
+                <span class="m-title" data-langNum="43">초대</span>
+                <div class="m-left">
+                    <a onclick="$.mobile.back()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+                </div>
+            </div>
+        </header>
+        <div>
+            <ul class="m-list">
+                <li>
+                    <input id="find" class="easyui-textbox" style="width:100%; margin-right:20px"
+                     prompt="찾는 분의 이름을 입력하세요.", buttonText="찾기">
+                </li>
+            </ul>
+        </div>
+        <ul id="buddies" class="m-list"></ul>
+    </div>
+    <div id="mm2" class="easyui-menu" style="width:100px;">
+        <div id="delete" data-options="iconCls:'icon-clear'" data-langNum="46">삭제</div>
+    </div>
+</body>
+
+<script src="util.js"></script>
+<script src="body.js"></script>
+<script src="chat.js"></script>
+<script src="userinfo.js"></script>
+<script src="invite.js"></script>
+<script src="lang.js"></script>
+<script>
+    setLanguage();
+    
+    var myInfo = readData('myInfo');
+    if (myInfo == null) window.close();
+
+    var chat_id = getUrlVars()["id"];
+    if (chat_id == undefined) window.close();
+
+    var chatInfo = null;
+    var buddyList = readList('buddyList');
+    var messageList = readList('messageList-' + chat_id);
+
+    var options = readData('option');
+    if (options == null) options = [ false, true, true ];
+    var radius = options[0] == false ? 'style="border-radius:0"' : '';
+
+    $('body').show();
+    setTimeout(infoRequest, 1000, chat_id);
+</script>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>OfficeHub Talk</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/gray/easyui.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/mobile.css">
+
+    <link rel="stylesheet" type="text/css" href="./home.css">
+
+</head>
+
+<body>
+
+    <div class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-left title">OfficeHub Talk</div>
+
+            <div class="m-toolbar">
+
+                <span id="title" class="m-title">Login</span>
+
+                <div class="m-right">
+
+                    <a href="javascript:close()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <iframe class="easyui-navpanel" id="oauth"></iframe>
+
+    </div>
+
+</body>
+
+
+
+<script src="util.js"></script>
+
+<script src="lang.js"></script>
+
+<script>
+
+    require('./renderer.js');
+
+
+
+    setLanguage(true);
+
+
+
+    var myInfo = readData('myInfo');
+
+
+
+    $('#oauth').prop('src', 'http://' + myInfo.host + '/oauth2/auth.php?client_id=&redirect_url=' + server + '/auth/redirect2');
+
+
+
+print('http://' + myInfo.host + '/oauth2/auth.php?client_id=&redirect_url=' + server + '/auth/redirect2')
+
+
+
+    setTimeout(check, 5000);
+
+
+
+    function check() {
+
+
+
+        var body = $('#oauth').contents().find("html").text();
+
+
+
+        if (body.charAt(0) != '{') {
+
+
+
+            setTimeout(check, 1000);
+
+        }
+
+        else {
+
+            var result = $.parseJSON(body);
+
+            if (result.success) {
+
+
+
+                token(result.response);
+
+            }
+
+            else {
+
+            //  alert('권한코드를 부여받지 못했습니다. 관리자에게 문의하세요.');
+
+                alert($.lang[currentLanguage][40]);
+
+
+
+                location.replace('login.html');
+
+            }
+
+        }
+
+    }
+
+
+
+    function token(code) {
+
+
+
+        request(
+
+            {
+
+                url: server + '/auth/token?host=' + myInfo.host + '&code=' + code
+
+            },
+
+            function (error, response, body) {
+
+
+
+                if (response.statusCode == 200) {
+
+                
+
+                    var myInfo = $.parseJSON(body);
+
+                    if (myInfo == null) {
+
+                        
+
+                        location.replace('login.html');
+
+                    }
+
+                    else if (myInfo.id > 0) {
+
+        
+
+                        try {
+
+                            writeData('myInfo', myInfo);
+
+                        }
+
+                        catch(e) {
+
+                          alert('프로그램 재실행 후 다시 시도해주세요.');
+
+                            alert($.lang[currentLanguage][39]);
+
+                            window.close();
+
+                        }
+
+        
+
+                        //location.replace('home.html');
+
+                    }
+
+                    else
+
+                        location.replace('login.html');
+
+                }
+
+            }
+
+        );
+
+    }
+
+</script>
+
+</html>
+

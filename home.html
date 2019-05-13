@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <title>OfficeHub Talk</title>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/gray/easyui.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/icon.css">  
+
+    <link rel="stylesheet" type="text/css" href="./easyui/themes/mobile.css">
+
+    <link rel="stylesheet" type="text/css" href="./icons/icons.css">
+
+    <link rel="stylesheet" type="text/css" href="./home.css">
+
+</head>
+
+
+
+<body style="display:none">
+
+    <div id="home" class="easyui-navpanel">
+
+        <div id="tab" class="easyui-tabs" data-options="tabHeight:60,fit:true,tabPosition:'bottom',border:false,pill:true,narrow:true,justified:true">
+
+            <div>
+
+                <div class="panel-header tt-inner" style="padding:10px">
+
+                    <i class="material-icons">message</i><br>
+
+                    <span data-langNum="1">대화목록</span> <span id="unread_message"></span>
+
+                </div>
+
+                <div class="easyui-navpanel">
+
+                    <header>
+
+                        <div class="m-left title">OfficeHub Talk</div>
+
+                        <div class="m-toolbar">
+
+                            <div class="m-title"><span data-langNum="1">대화목록</span><span id="chat_count"></span></div>
+
+                        </div>
+
+                        <div class="m-right">
+
+                            <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+
+                            <a href="javascript:close2()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+
+                        </div>
+
+                    </header>
+
+                    <ul id="chatList" class="m-list"></ul>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="panel-header tt-inner" style="padding:10px">
+
+                    <i class="material-icons">group</i><br>
+
+                    <span data-langNum="2">대화상대</span>
+
+                </div>
+
+                <div class="easyui-navpanel">
+
+                    <header>
+
+                        <div class="m-left title">OfficeHub Talk</div>
+
+                        <div class="m-toolbar">
+
+                            <div class="m-title"><span data-langNum="2">대화상대</span><span id="buddy_count"></span></div>
+
+                        </div>
+
+                        <div class="m-right">
+
+                            <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+
+                            <a href="javascript:close2()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+
+                        </div>
+
+                    </header>
+
+                    <ul id="buddyList" class="m-list"></ul>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="panel-header tt-inner" style="padding:10px">
+
+                    <i class="material-icons">notifications</i><br>
+
+                    <span data-langNum="3">알림목록</span> <span id="unread_notice"></span>
+
+                </div>
+
+                <div class="easyui-navpanel">
+
+                    <header>
+
+                        <div class="m-left title">OfficeHub Talk</div>
+
+                        <div class="m-toolbar">
+
+                            <div class="m-title"><span data-langNum="3">알림목록</span><span id="notice_count"></span></div>
+
+                        </div>
+
+                        <div class="m-right">
+
+                            <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+
+                            <a href="javascript:close2()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+
+                        </div>
+
+                     </header>
+
+                    <ul id="noticeList" class="m-list"></ul>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <div class="panel-header tt-inner" style="padding:10px">
+
+                    <i class="material-icons">more_horiz</i><br>
+
+                    <span data-langNum="4">더보기</span>
+
+                </div>
+
+                <div class="easyui-navpanel">
+
+                    <header>
+
+                        <div class="m-left title">OfficeHub Talk</div>
+
+                        <div class="m-toolbar">
+
+                            <div class="m-title"><span data-langNum="4">더보기</span></div>
+
+                         </div>
+
+                        <div class="m-right">
+
+                            <a href="javascript:void(0)" class="easyui-menubutton" data-options="iconCls:'icon-more',menu:'#mm',menuAlign:'right',hasDownArrow:false"></a>
+
+                            <a href="javascript:close2()" class="easyui-linkbutton" style="width:30px;height:30px" data-options="iconCls:'icon-clear',plain:true"></a>
+
+                        </div>
+
+                    </header>
+
+                    <div>
+
+                        <ul id="settings" class="m-list">
+
+                            <li>
+
+                                <a id="myinfo_link" href="javascript:myinfo()"></a>
+
+                            </li>
+
+                            <li><a href="javascript:member()">
+
+                                <i class="material-icons">person_add</i>
+
+                                <span data-langNum="5">조직도 보기</span></a>
+
+                            </li>
+
+                            <li><a href="javascript:search()">
+
+                                <i class="material-icons">search</i>
+
+                                <span data-langNum="6">사용자 찾기</span></a>
+
+                            </li>
+
+                            <!--
+
+                            <li><a href="javascript:office()">
+
+                                <i class="material-icons">home</i>
+
+                                <span data-langNum="7"그룹웨어 홈</span></a>
+
+                            </li>
+
+                            -->
+
+                            <li><a href="javascript:option()">
+
+                                <i class="material-icons">settings</i>
+
+                                <span data-langNum="8">옵션설정</span></a>
+
+                            </li>
+
+                            <li><a href="javascript:unregister()">
+
+                                <i class="material-icons">directions_run</i>
+
+                                <span data-langNum="9" style="color:red">계정변경</span></a>
+
+                            </li>
+
+                            <li><a href="javascript:updateInfo()">
+
+                                <i class="material-icons">info_outline</i>
+
+                                <span data-langNum="10">업데이트</span><span id="version"></span></a>
+
+                            </li>
+
+                            <li><a href="javascript:contacts()">
+
+                                <i class="material-icons">contact_phone</i>
+
+                                <span data-langNum="79">주소록</span></a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="myinfo" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="11">나의 프로필</span>
+
+                <div class="m-left">
+
+                    <a onclick="$.mobile.back();$('.float').show()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="easyui-navpanel">
+
+            <div style="background-color: #FAFAFD; margin:0; padding: 30px 0 0 30px; height:164px;">
+
+                <div>
+
+                    <div id="my_photo_frame" class="user-photo">
+
+                        <img id="my_photo" onclick="$('#my_file').trigger('click')" src="./img/drag.png" style="margin:0;width:100%;height:100%;">
+
+                    </div>
+
+                    <div class="text-box"></div>
+
+                    <table class="text-box">
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="21">이름</strong></td><td><span class="plane-text" id="my_name"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="22">소속</strong></td><td><span class="plane-text" id="my_comp"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="23">직급</strong></td><td><span class="plane-text" id="my_rank"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="24">부서</strong></td><td><span class="plane-text" id="my_part"></span></td></tr>
+
+                    </table>
+
+                </div>
+
+                <div style="clear:left"></div>
+
+                <div id="clear" class="user-clear">
+
+                    <a onclick="removeProfile()" data-langNum="17">사진삭제</a>
+
+                </div>
+
+            </div>
+
+            <div style="height:2px; background-color:#E2E2E2"></div>
+
+            <div style="padding:30px 0 0 10px">
+
+                <table class="text-box">
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="25">연락처</strong></td><td><span class="plane-text" id="my_phone"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="26">휴대폰</strong></td><td><span class="plane-text" id="my_cell"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="27">이메일</strong></td><td><span class="plane-text" id="my_email"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="28">담당업무</strong></td><td><span class="plane-text" id="my_job"></span></td></tr>
+
+                </table>
+
+                <div style="margin:30px 0 0 20px">
+
+                    <input id="my_status" class="easyui-textbox" style="width:300px; height:70px"
+
+                     prompt="상태메시지를 입력하세요." multiline="true" buttonText="업데이트">
+
+                </div>
+
+            </div>
+
+            <input id="my_file" type="file" style="display:none"/>
+
+        </div>
+
+    </div>
+
+    <div id="member" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="12">조직도 보기</span>
+
+                <div class="m-left">
+
+                    <a onclick="$.mobile.back();$('.float').show()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div>
+
+            <ul class="m-list">
+
+                <li>
+
+                    <input id="find2" class="easyui-textbox" style="width:100%; margin-right:20px"
+
+                     prompt="찾는 분의 이름을 입력하세요.", buttonText="찾기">
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <ul id="members" class="m-list"></ul>
+
+    </div>
+
+    <div id="search" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="13">사용자 찾기</span>
+
+                <div class="m-left">
+
+                    <a onclick="$.mobile.back();$('.float').show()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div>
+
+            <ul class="m-list">
+
+                <li>
+
+                    <input id="find" class="easyui-textbox" style="width:100%; margin-right:20px"
+
+                     prompt="찾는 분의 이름을 입력하세요.", buttonText="찾기">
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <ul id="users" class="m-list"></ul>
+
+    </div>
+
+    <div id="option" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="14">옵션설정</span>
+
+                <div class="m-left">
+
+                    <a onclick="option(true);;$('.float').show()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div id="options" data-options="fit: true, border: false, lines: true, checkbox: true, singleSelect: false"></div>
+
+    </div>
+
+    <div id="userinfo" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="15">사용자정보</span>
+
+                <div class="m-left">
+
+                    <a onclick="$.mobile.back()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="easyui-navpanel">
+
+            <div style="background-color: #FAFAFD; margin:0; padding: 30px 0 0 30px; height:164px;">
+
+                <div>
+
+                    <div id="user_photo_frame" class="user-photo">
+
+                        <img id="user_photo" style="margin:0;width:100%;height:100%;">
+
+                    </div>
+
+                    <div class="text-box"></div>
+
+                    <table class="text-box">
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="21">이름</strong></td><td><span class="plane-text" id="user_name"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="22">소속</strong></td><td><span class="plane-text" id="user_comp"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="23">직급</strong></td><td><span class="plane-text" id="user_rank"></span></td></tr>
+
+                        <tr><td><span class="plane-text">■</span> <strong data-langNum="24">부서</strong></td><td><span class="plane-text" id="user_part"></span></td></tr>
+
+                    </table>
+
+                 </div>
+
+                <div style="clear:left"></div>
+
+            </div>
+
+            <div style="height:2px; background-color:#E2E2E2"></div>
+
+            <div style="padding:30px 0 0 10px">
+
+                <table class="text-box">
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="25">연락처</strong></td><td><span class="plane-text" id="user_phone"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="26">휴대폰</strong></td><td><span class="plane-text" id="user_cell"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="27">이메일</strong></td><td><span class="plane-text" id="user_email"></span></td></tr>
+
+                    <tr><td><span class="plane-text">■</span> <strong data-langNum="28">담당업무</strong></td><td><span class="plane-text" id="user_job"></span></td></tr>
+
+                </table>
+
+                <div style="margin:30px 0 0 20px">
+
+                    <input id="user_status" readonly=true class="easyui-textbox" style="width:300px; height:70px"
+
+                     prompt="등록된 상태메시지가 없습니다." multiline="true">
+
+                </div>
+
+            </div>
+
+            <div style="width:100%; text-align:center; margin-top:50px;">
+
+                <a id="user_chat" class="easyui-linkbutton" plain="true">
+
+                    <span style="font-size:16px" data-langNum="17">대화하기</span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="select" class="easyui-navpanel">
+
+        <header>
+
+            <div class="m-toolbar">
+
+                <span class="m-title" data-langNum="16">대화방 만들기</span>
+
+                <div class="m-left">
+
+                    <a onclick="$.mobile.back()" class="easyui-linkbutton m-back" plain="true" outline="true" data-langNum="29">뒤로</a>
+
+                </div>
+
+                <div class="m-right" style="margin-right:10px">
+
+                    <a href="javascript:create()" class="easyui-linkbutton" style="width:auto;height:30px"
+
+                     data-options="iconCls:'icon-ok',plain:true" data-langNum="30">완료</a>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <ul id="buddies" class="m-list"></ul>
+
+    </div>
+
+    <div id="mm" class="easyui-menu" style="width:150px;">
+
+        <div id="mm_create" data-options="iconCls:'icon-add'" data-langNum="16">대화방 만들기</div>
+
+        <div class="menu-sep"></div>
+
+        <div id="mm_member" data-options="iconCls:'icon-man'" data-langNum="5">조직도 보기</div>
+
+        <div id="mm_search" data-options="iconCls:'icon-search'" data-langNum="13">사용자 찾기</div>
+
+        <div id="mm_delete" data-options="iconCls:'icon-remove'" data-langNum="18">알림 지우기</div>
+
+        <div id="sep" class="menu-sep"></div>
+
+        <div id="mm_logout" data-options="iconCls:'icon-undo'" data-langNum="19">로그아웃</div>
+
+        <div id="sep" class="menu-sep"></div>
+
+        <div id="mm_exit" data-options="iconCls:'icon-cancel'" data-langNum="20">종료</div>
+
+    </div>
+
+    <div>
+
+        <a href="javascript:office()" class="float"><i class="material-icons" style="margin-top:12px">home</i></a>
+
+    </div>
+
+</body>
+
+</html>
+
+<script src="util.js"></script>
+
+<script src="home.js"></script>
+
+<script src="info.js"></script>
+
+<script src="list.js"></script>
+
+<script src="myinfo.js"></script>
+
+<script src="member.js"></script>
+
+<script src="search.js"></script>
+
+<script src="options.js"></script>
+
+<script src="userinfo.js"></script>
+
+<script src="select.js"></script>
+
+<script src="lang.js"></script>
+
+<script>
+
+    setLanguage();
+
+    setLanguage2();
+
+    var myInfo = readData('myInfo');
+
+    if (myInfo) setMyInfo(); else window.close();
+
+    var menu1 = $.lang[currentLanguage][48] // '실행'
+
+    var menu2 = $.lang[currentLanguage][49] // '닫기'
+
+    var menu3 = $.lang[currentLanguage][19] // '로그아웃'
+
+    var menu4 = $.lang[currentLanguage][20] // '종료'
+
+    console.log('test');
+
+    console.log(menu1);
+    console.log(menu2);
+    console.log(menu3);
+    console.log(menu4);
+
+    ipcRenderer.send('login', menu1, menu2, menu3, menu4);
+
+
+    var chatList = null;
+
+    var chatUser = null;
+
+    var buddyList = readList('buddyList');
+
+    var noticeList = readList('noticeList');
+
+    var windowList = readList('windowList');
+
+    var unreadList = readList('unreadList');
+
+
+
+    $('body').show();
+
+
+
+    setTimeout(buddyRequest, 1000);
+
+    setTimeout(chatRequest, 1000);
+
+    setTimeout(noticeRequest, 1000);
+
+    setTimeout(syncRequest, 1000);
+
+</script>

@@ -1,0 +1,22 @@
+{
+  "name": "officehubtalk",
+  "version": "1.2.2",
+  "description": "OfficeHub Messenger",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^4.1.4"
+  },
+  "bugs": {
+    "url": "https://github.com/electron/simple-samples/issues"
+  },
+  "homepage": "https://github.com/electron/simple-samples#readme",
+  "dependencies": {
+    "electron-push-receiver": "^2.1.2"
+  },
+  "keywords": [],
+  "author": ""
+}

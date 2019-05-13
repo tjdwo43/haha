@@ -1,0 +1,139 @@
+
+body{
+    font-family: sans-serif;
+}
+
+#chat .list-photo-in{
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    margin-right: 10px;
+    float: left;
+}
+#chat .list-name-in{
+    font-size: 12px;
+    font-weight: bold;
+}
+#chat .list-text-in{
+    display: inline-block;
+    border-radius: 5px;
+    width: auto;
+    max-width: 65%;
+    white-space: pre-wrap;
+    margin-top: 2px;
+    margin-left: 0;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    background-color: white;
+    color: black;
+    font-size: 12px;
+}
+#chat .list-image-in{
+    display: inline-block;
+    width: auto;
+    max-width: 65%;
+    margin-top: 5px;
+}
+#chat .list-time-in{
+    color: gray;
+    font-size: 10px;
+}
+#chat .list-text-out{
+    float: right;
+    border-radius: 5px;
+    width: auto;
+    max-width: 65%;
+    white-space: pre-wrap;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    background-color:lightgreen;
+    color: black;
+    font-size: 12px;
+}
+#chat .list-image-out{
+    float: right;
+    margin-top: 5px;
+    width: auto;
+    max-width: 65%;
+}
+#chat .list-time-out{
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    color: gray;
+    font-size: 10px;
+}
+#chat .list-read-out{
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    color: black;
+    font-size: 10px;
+}
+
+#chat li{
+    border: 0;
+}
+
+/*
+ * https://leaverou.github.io/bubbly/
+ */
+.arrow-in {
+	position: relative;
+	background: white;
+	border-radius: .5em;
+}
+
+.arrow-in:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 10px;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-right-color: white;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -5px;
+	margin-left: -10px;
+}
+
+.arrow-out {
+	position: relative;
+	background: lightgreen;
+	border-radius: .5em;
+}
+
+.arrow-out:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 10px;
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-left-color: lightgreen;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -5px;
+	margin-right: -10px;
+}
+
+.date {
+    background-color:lightblue;
+    border-radius: 5px;
+    padding: 3px 10px 3px 10px;
+    font-size: 9pt;
+    color:black;
+}
+
+#chat a:link    { text-decoration:none; color:blue }
+#chat a:visited { text-decoration:none; color:gray }
+#chat a:hover   { text-decoration:none; color:red }
+#chat a:active  { text-decoration:none; color:black }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OfficeHub Talk</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+<style>
+    body {
+        -webkit-app-region: drag;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        background-color:#1AB394;
+        font-family:sans-serif;
+        font-size:10pt;
+    }
+    #title {
+        margin-left:5px;
+        background-color:#1AB394;
+        color:white;
+    }
+    #count {
+        display:none;
+        margin-left:5px;
+        padding:2px 5px 2px 5px;
+        background-color:red;
+        border-radius:50%;
+        font-size:9pt;
+        color:white;
+    }
+    a:link    { text-decoration:none; color:black; }
+    a:visited { text-decoration:none; color:black; }
+    a:hover   { text-decoration:none; color:white; }
+    a:active  { text-decoration:none; color:white; }
+    a { -webkit-app-region: no-drag }
+</style>
+<body>
+    <div>
+        <a href="javascript:close()">X</a>
+        <span id="title">Shortcut</span>
+        <span id="count"></span>
+    </div>
+</body>
+
+<script src="util.js"></script>
+<script>
+    var count = 0
+    var ready = true
+
+    var chat_id = getUrlVars()["id"]
+    if (chat_id == undefined) window.close()
+    
+    var nameList = readData('nameList')
+    if (nameList == null) window.close()
+    
+    var obj = findById(nameList, chat_id)
+    if (obj == null) window.close()
+
+    $('#title').text(obj.name)
+
+    // Message count
+    ipcRenderer.on('count', function(e, id) {
+        $('#count').show()
+        count += 1
+        $('#count').text(count)
+    });
+        
+    // Chat start
+    ipcRenderer.on('start', function(e) {
+
+        if (ready) {
+            ready = false
+            ipcRenderer.send('start', chat_id)
+        }
+    })
+
+    // Chat started
+    ipcRenderer.on('started', function(e, id) {
+        $('#count').hide()
+        count = 0
+        ready = true
+    })
+</script>
+</html>
